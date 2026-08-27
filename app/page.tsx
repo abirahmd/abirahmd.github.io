@@ -370,10 +370,7 @@ export default function Home() {
                 title="Diff-AS: Diffusion-Augmented Strategy for Chrysanthemum Leaf Classification"
                 authors={
                   <>
-                    <strong>
-                      S. P. Shaha, A. Ahmed, M. H. Ahmad, A. B. Akhi, M. H.
-                      Badhan and M. Atiqur Rahman
-                    </strong>
+                    S. P. Shaha, <strong> Abir Ahmed, </strong> M. H. Ahmad, A. B. Akhi, M. H. Badhan and M. Atiqur Rahman
                   </>
                 }
                 venue="Accepted · IEEE QPAIN 2026"
@@ -389,7 +386,7 @@ export default function Home() {
                 title="Efficient Zero-Shot Voice Cloning for Bengali Speech Synthesis"
                 authors={
                   <>
-                    <strong>Abir Ahmed</strong>, et al.
+                    <strong>Abir Ahmed,</strong> Prapti Roy, Durjoy Chandra Paul, M. Shahidur Rahman
                   </>
                 }
                 venue="IEEE ICCIT 2024"
@@ -409,10 +406,7 @@ export default function Home() {
                 title="Percept-Diff: Innovations in Stable Diffusion for High-Fidelity IHC Image Generation in HER2 Breast Cancer Incorporating Perceptual Loss"
                 authors={
                   <>
-                    <strong>
-                      Md. Naimur Asif Borno; Md. Tanvir Raihan; Abir Ahmed; Md
-                      Sakib Hossain Shovon; Jungpil Shin; M.F. Mridha
-                    </strong>
+                    Md. Naimur Asif Borno, Md. Tanvir Raihan, <strong> Abir Ahmed, </strong> Md Sakib Hossain Shovon, Jungpil Shin, M.F. Mridha
                   </>
                 }
                 venue="IEEE 3ICT 2024"
@@ -428,7 +422,7 @@ export default function Home() {
                 title="Systematic Benchmarking and Hyperparameter Ablation of Lightweight Vision Transformers for Blood Cancer Detection from Peripheral Smear Images"
                 authors={
                   <>
-                    Sonjoy, <strong>Abir Ahmed</strong>, and A. B. Akhi
+                     Sonjoy, <strong>Abir Ahmed,</strong> A. B. Akhi
                   </>
                 }
                 venue="Submitted · ICRPSET 2026"
@@ -444,10 +438,10 @@ export default function Home() {
                 title="Exploring the Barriers Preventing Women in Bangladesh from Pursuing Political Leadership Roles: Dataset Creation and Machine Learning Analysis"
                 authors={
                   <>
-                    <strong>Abir Ahmed</strong> (Supervisor)
+                    {/* <strong>Abir Ahmed</strong> (Supervisor) */}
                   </>
                 }
-                venue="Submitted · ACL Workshop 2027"
+                venue="Submitted · ACL Workshop 2027 · Corresponding Author "
                 links={[
                   {
                     label: "Venue",
@@ -460,7 +454,7 @@ export default function Home() {
                 title="DCT-GAN: A Diversity-Controlled Training Strategy for High-Diversity Brain Tumor MRI Synthesis"
                 authors={
                   <>
-                    <strong>Abir Ahmed</strong>, et al.
+                    {/* <strong>Abir Ahmed</strong> */}
                   </>
                 }
                 venue="Manuscript in Preparation · First Author"
@@ -471,7 +465,7 @@ export default function Home() {
                 title="BanglaS2S: A Large-Scale and Quality-Controlled Bangla–English Speech-to-Speech Parallel Corpus for Speech-to-Speech Translation"
                 authors={
                   <>
-                    <strong>Abir Ahmed</strong>, et al.
+                    {/* <strong>Abir Ahmed</strong>, et al. */}
                   </>
                 }
                 venue="Manuscript in Preparation · Second Author"
