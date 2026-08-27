@@ -2,7 +2,6 @@
 
 import {
   ArrowUpRight,
-  Award,
   BookOpen,
   BriefcaseBusiness,
   Code2,
@@ -11,14 +10,11 @@ import {
   Mail,
   Menu,
   Newspaper,
-  Microscope,
   UserRound,
   X,
 } from "lucide-react";
-
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiGooglescholar } from "react-icons/si";
-
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -31,17 +27,14 @@ export default function Home() {
     { label: "Education", id: "education" },
     { label: "Experience", id: "experience" },
     { label: "Publications", id: "publications" },
-    { label: "Research", id: "research" },
     { label: "Projects", id: "projects" },
-    { label: "Activities", id: "activities" },
-    { label: "Awards", id: "awards" },
     { label: "Skills", id: "skills" },
+    { label: "Contact", id: "contact" },
   ];
 
   /* --------------------------------------------- */
   /* ACTIVE SECTION DETECTION */
   /* --------------------------------------------- */
-
   useEffect(() => {
     const sections = navItems
       .map((item) => document.getElementById(item.id))
@@ -49,7 +42,6 @@ export default function Home() {
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 180;
-
       let currentSection = "about";
 
       for (const section of sections) {
@@ -57,109 +49,74 @@ export default function Home() {
           currentSection = section.id;
         }
       }
-
       setActiveSection(currentSection);
     };
 
     handleScroll();
-
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   /* --------------------------------------------- */
   /* SMOOTH SCROLL */
   /* --------------------------------------------- */
-
   const scrollToSection = (
     event: React.MouseEvent<HTMLAnchorElement>,
     id: string
   ) => {
     event.preventDefault();
-
     const section = document.getElementById(id);
-
     if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-
     setMobileMenuOpen(false);
-
     window.history.pushState(null, "", `#${id}`);
   };
 
   return (
-    <main className="min-h-screen bg-[#fbfbfa] text-[#252525]">
-
+    <main className="min-h-screen bg-[#faf9f7] text-[#1c1c1c]">
       {/* ================================================= */}
       {/* MOBILE TOP BAR */}
       {/* ================================================= */}
-
-      <div className="sticky top-0 z-50 border-b border-neutral-200 bg-[#fbfbfa]/95 backdrop-blur md:hidden">
+      <div className="sticky top-0 z-50 border-b border-neutral-200/80 bg-[#faf9f7]/95 backdrop-blur md:hidden">
         <div className="flex items-center justify-between px-5 py-4">
-
           <a
             href="#about"
-            onClick={(event) =>
-              scrollToSection(event, "about")
-            }
+            onClick={(e) => scrollToSection(e, "about")}
             className="font-serif text-lg font-semibold tracking-tight"
           >
             Abir Ahmed
           </a>
-
           <button
-            onClick={() =>
-              setMobileMenuOpen(!mobileMenuOpen)
-            }
-            className="p-1 text-neutral-700"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-1 text-neutral-600"
             aria-label="Toggle navigation"
           >
             {mobileMenuOpen ? (
-              <X
-                size={21}
-                strokeWidth={1.5}
-              />
+              <X size={20} strokeWidth={1.5} />
             ) : (
-              <Menu
-                size={21}
-                strokeWidth={1.5}
-              />
+              <Menu size={20} strokeWidth={1.5} />
             )}
           </button>
         </div>
 
         {mobileMenuOpen && (
-          <nav className="border-t border-neutral-200 px-5 py-4">
-            <div className="grid grid-cols-2 gap-y-3">
-
+          <nav className="border-t border-neutral-200 px-5 py-5">
+            <div className="grid grid-cols-2 gap-y-3.5">
               {navItems.map((item) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  onClick={(event) =>
-                    scrollToSection(
-                      event,
-                      item.id
-                    )
-                  }
-                  className={`text-sm transition-colors ${activeSection === item.id
+                  onClick={(e) => scrollToSection(e, item.id)}
+                  className={`text-[13px] transition-colors ${
+                    activeSection === item.id
                       ? "font-medium text-neutral-950"
-                      : "text-neutral-600 hover:text-neutral-950"
-                    }`}
+                      : "text-neutral-500 hover:text-neutral-900"
+                  }`}
                 >
                   {item.label}
                 </a>
               ))}
-
             </div>
           </nav>
         )}
@@ -168,261 +125,145 @@ export default function Home() {
       {/* ================================================= */}
       {/* MAIN LAYOUT */}
       {/* ================================================= */}
-
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-6 sm:px-8 md:flex-row md:gap-12 md:py-8 lg:gap-16">
-
+      <div className="mx-auto flex max-w-5xl flex-col gap-12 px-5 py-8 sm:px-6 md:flex-row md:gap-10 md:py-12 lg:gap-14">
         {/* ================================================= */}
         {/* SIDEBAR */}
         {/* ================================================= */}
-
-        <aside className="hidden w-56 shrink-0 md:sticky md:top-10 md:block md:self-start">
-
-          <div className="space-y-5">
-
+        <aside className="hidden w-48 shrink-0 md:sticky md:top-12 md:block md:self-start md:-ml-2 lg:-ml-4">
+          <div className="space-y-6">
             {/* PROFILE IMAGE */}
-
             <div className="h-28 w-28 overflow-hidden rounded-full border border-neutral-200 bg-neutral-100">
-
               <img
                 src="/abir.png"
                 alt="Abir Ahmed"
                 className="h-full w-full object-cover"
               />
-
             </div>
 
             {/* NAME */}
-
             <div>
-
-              <h1 className="font-serif text-[27px] font-semibold tracking-tight text-neutral-950">
+              <h1 className="font-serif text-[26px] font-semibold leading-tight tracking-tight text-neutral-950">
                 Abir Ahmed
               </h1>
-
-              <p className="mt-1 text-[12px] leading-relaxed text-neutral-500">
+              <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-500">
                 Researcher and Educator
               </p>
-
             </div>
 
-            {/* PROFILE INFORMATION
-
-            <div className="space-y-1 text-[12px] leading-relaxed text-neutral-600">
-
-              <p className="font-medium text-neutral-900">
-                Generative AI
-              </p>
-
-              <p>
-                Speech & Audio · Computer Vision
-              </p>
-
-              <p>
-                Shahjalal University of Science & Technology
-              </p>
-
-              <p className="text-neutral-400">
-                Sylhet, Bangladesh
-              </p>
-
-            </div> */}
-
-            {/* ================================================= */}
             {/* SOCIAL ICONS */}
-            {/* ================================================= */}
-
             <div className="flex items-center gap-4 border-y border-neutral-200 py-4">
-
-              {/* CV */}
-
               <a
                 href="/cv"
-                target='_blank'
+                target="_blank"
                 aria-label="Curriculum Vitae"
                 title="CV"
-                className="text-neutral-500 transition-colors duration-200 hover:text-neutral-950"
+                className="text-neutral-500 transition-colors hover:text-neutral-950"
               >
-                <FileText
-                  size={17}
-                  strokeWidth={1.5}
-                />
+                <FileText size={16} strokeWidth={1.5} />
               </a>
-
-              {/* GOOGLE SCHOLAR */}
-
               <a
                 href="https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AKCpqFw3KQV_dVVeL_216tCmr5mV-XNLwP1olXNInFNLy08orFgpjPnWLjr6lzMDL29Rv_EFIYSydLILpEKi7IduIEsq&user=QR5DvcIAAAAJ"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Google Scholar"
                 aria-label="Google Scholar"
-                className="text-neutral-500 transition-colors duration-200 hover:text-neutral-950"
+                className="text-neutral-500 transition-colors hover:text-neutral-950"
               >
-                <SiGooglescholar size={17} />
+                <SiGooglescholar size={16} />
               </a>
-
-              {/* GITHUB */}
-
               <a
                 href="https://github.com/abirahmed56"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub"
                 aria-label="GitHub"
-                className="text-neutral-500 transition-colors duration-200 hover:text-neutral-950"
+                className="text-neutral-500 transition-colors hover:text-neutral-950"
               >
-                <FaGithub size={17} />
+                <FaGithub size={16} />
               </a>
-
-              {/* LINKEDIN */}
-
               <a
-                href="https://www.linkedin.com/in/abirahmed6/"
+                href="https://www.linkedin.com/in/abirahmd/"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="LinkedIn"
                 aria-label="LinkedIn"
-                className="text-neutral-500 transition-colors duration-200 hover:text-neutral-950"
+                className="text-neutral-500 transition-colors hover:text-neutral-950"
               >
-                <FaLinkedin size={17} />
+                <FaLinkedin size={16} />
               </a>
-
-              {/* EMAIL */}
-
               <a
-                href="mailto:abirahmed.academic@gmail.com"
+                href="mailto:aabirsust@gmail.com"
                 aria-label="Email"
                 title="Email"
-                className="text-neutral-500 transition-colors duration-200 hover:text-neutral-950"
+                className="text-neutral-500 transition-colors hover:text-neutral-950"
               >
-                <Mail
-                  size={17}
-                  strokeWidth={1.5}
-                />
+                <Mail size={16} strokeWidth={1.5} />
               </a>
-
             </div>
 
-            {/* ================================================= */}
             {/* NAVIGATION */}
-            {/* ================================================= */}
-
-            <nav className="mt-6 border-l border-neutral-200 pl-4">
-
-              {/* <p className="mb-2 text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-400">
-                Navigation
-              </p> */}
-
+            <nav className="border-l border-neutral-200 pl-4">
               <div className="space-y-0.5">
-
                 {navItems.map((item) => {
-
-                  const isActive =
-                    activeSection === item.id;
-
+                  const isActive = activeSection === item.id;
                   return (
                     <a
                       key={item.id}
                       href={`#${item.id}`}
-                      onClick={(event) =>
-                        scrollToSection(
-                          event,
-                          item.id
-                        )
-                      }
-                      className={`group relative flex items-center py-[4px] text-[14px] transition-colors duration-200 ${isActive
+                      onClick={(e) => scrollToSection(e, item.id)}
+                      className={`group relative flex items-center py-[5px] text-[13.5px] transition-colors ${
+                        isActive
                           ? "font-medium text-neutral-950"
-                          : "text-neutral-500 hover:text-neutral-950"
-                        }`}
+                          : "text-neutral-500 hover:text-neutral-900"
+                      }`}
                     >
-
-                      {/* ACTIVE / HOVER LINE */}
-
                       <span
-                        className={`absolute -left-[17px] bg-neutral-800 transition-all duration-200 ${isActive
-                            ? "w-3"
-                            : "w-0 group-hover:w-3"
-                          }`}
+                        className={`absolute -left-[17px] h-[1.5px] bg-neutral-800 transition-all duration-200 ${
+                          isActive ? "w-2.5" : "w-0 group-hover:w-2.5"
+                        }`}
                       />
-
-                      {/* LABEL */}
-
                       <span className="transition-transform duration-200 group-hover:translate-x-0.5">
                         {item.label}
                       </span>
-
                     </a>
                   );
                 })}
-
               </div>
-
             </nav>
-
           </div>
-
         </aside>
 
         {/* ================================================= */}
         {/* MAIN CONTENT */}
         {/* ================================================= */}
-
         <div className="min-w-0 flex-1 md:border-l md:border-neutral-200 md:pl-10 lg:pl-14">
-
-          {/* ================================================= */}
           {/* ABOUT */}
-          {/* ================================================= */}
-
-          <section
-            id="about"
-            className="scroll-mt-10 pb-12 md:pb-14"
-          >
-
-            <div className="mb-7 flex items-center gap-3">
-
-              <UserRound
-                size={18}
-                strokeWidth={1.4}
-                className="text-neutral-400"
-              />
-
-              <h2 className="font-serif text-xl font-semibold tracking-tight text-neutral-950">
-                About
-              </h2>
-
+          <section id="about" className="scroll-mt-12 pb-14">
+            <SectionTitle
+              icon={<UserRound size={17} strokeWidth={1.4} />}
+              title="About"
+            />
+            <div className="mt-6 max-w-2xl space-y-4 text-[14.5px] leading-[1.8] text-neutral-600">
+              <p>
+                I am a Software Engineering graduate from Shahjalal University of
+                Science & Technology (SUST) with research experience in speech
+                synthesis and generative image modeling. My work has focused on
+                zero-shot voice cloning, diffusion models, and GAN-based approaches
+                for high-fidelity synthesis.
+              </p>
+              <p>
+                My research interests center on generative modeling, controllable
+                generation, and multimodal learning across speech, audio, and vision.
+                I am particularly interested in developing more efficient and
+                controllable generative systems while remaining open to related
+                directions in deep learning.
+              </p>
+              <p>
+                I am currently seeking graduate research opportunities where I can
+                contribute to and further advance generative AI research.
+              </p>
             </div>
-
-            <div className="max-w-2xl space-y-4 text-[14px] leading-[1.85] text-neutral-600">
-
-              <p>
-                I am a Software Engineering graduate from
-                Shahjalal University of Science & Technology
-                (SUST), with research interests in generative
-                artificial intelligence, speech and audio
-                synthesis, computer vision, and multimodal
-                learning.
-              </p>
-
-              <p>
-                My research experience focuses on developing
-                and evaluating generative models for speech and
-                image data, with particular interest in
-                controllable generation, zero-shot synthesis,
-                representation learning, and data-efficient
-                learning.
-              </p>
-
-              <p>
-                I am interested in graduate research
-                opportunities where I can contribute to the
-                development of generative and multimodal
-                learning systems.
-              </p>
-
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-2">
-
+            <div className="mt-7 flex flex-wrap gap-2">
               {[
                 "Generative AI",
                 "Speech Synthesis",
@@ -432,568 +273,299 @@ export default function Home() {
               ].map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-neutral-200 px-3 py-1 text-[11px] text-neutral-500"
+                  className="rounded-full border border-neutral-200 bg-white px-3 py-1 text-[11px] text-neutral-500"
                 >
                   {item}
                 </span>
               ))}
-
             </div>
-
           </section>
 
           <Divider />
 
-          {/* ================================================= */}
           {/* NEWS */}
-          {/* ================================================= */}
-
-          <section
-            id="news"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
+          <section id="news" className="scroll-mt-12 py-14">
             <SectionTitle
-              icon={
-                <Newspaper
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
+              icon={<Newspaper size={17} strokeWidth={1.4} />}
               title="News"
             />
-
             <div className="mt-7 space-y-5">
-
-              <NewsItem
-                date="Aug. 2026"
-                children={
-                  <>
-                    Preparing applications for graduate study
-                    focused on generative AI and multimodal
-                    learning.
-                  </>
-                }
-              />
-
-              <NewsItem
-                date="Jun. 2026"
-                children={
-                  <>
-                    Joined Sylhet Engineering College as an
-                    Adjunct Faculty Member in the Department
-                    of Computer Science and Engineering.
-                  </>
-                }
-              />
-              <NewsItem
-                date="February. 2026"
-                children={
-                  <>
-                    Diff-AS: Diffusion-Augmented Strategy for Chrysanthemum
-                    Leaf Classification has been (Accepted, IEEE QPAIN 2026!).
-                  </>
-                }
-              />
-              <NewsItem
-                date="Dec. 2024"
-                children={
-                  <>
-                    Efficient Zero-Shot Voice Cloning for Bengali Speech Synthesis (Accepted, ICCIT 2024).
-                  </>
-                }
-              />
-              <NewsItem
-                date="April. 2024"
-                children={
-                  <>
-                    Graduated from Shahjalal University of Science
-                    and Technology.
-                  </>
-                }
-              />
-
+              <NewsItem date="Jun. 2026">
+                Joined Sylhet Engineering College as an Adjunct Faculty Member
+                in the Department of Computer Science and Engineering.
+              </NewsItem>
+              <NewsItem date="February. 2026">
+                Diff-AS: Diffusion-Augmented Strategy for Chrysanthemum Leaf
+                Classification has been accepted at IEEE QPAIN 2026.
+              </NewsItem>
+              <NewsItem date="Dec. 2024">
+                Efficient Zero-Shot Voice Cloning for Bengali Speech Synthesis
+                (Accepted, ICCIT 2024).
+              </NewsItem>
+              <NewsItem date="April. 2024">
+                Graduated from Shahjalal University of Science and Technology.
+              </NewsItem>
             </div>
-
           </section>
 
           <Divider />
 
-          {/* ================================================= */}
           {/* EDUCATION */}
-          {/* ================================================= */}
-
-          <section
-            id="education"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
+          <section id="education" className="scroll-mt-12 py-14">
             <SectionTitle
-              icon={
-                <GraduationCap
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
+              icon={<GraduationCap size={17} strokeWidth={1.4} />}
               title="Education"
             />
-
             <div className="mt-7 space-y-7">
-
               <TimelineItem
-                year="Completed"
+                year="Feb 2019 – April 2024"
                 title="B.Sc. in Software Engineering"
                 organization="Shahjalal University of Science & Technology (SUST)"
                 description="Sylhet, Bangladesh"
               />
-
             </div>
-
           </section>
 
           <Divider />
 
-          {/* ================================================= */}
           {/* EXPERIENCE */}
-          {/* ================================================= */}
-
-          <section
-            id="experience"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
+          <section id="experience" className="scroll-mt-12 py-14">
             <SectionTitle
-              icon={
-                <BriefcaseBusiness
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
+              icon={<BriefcaseBusiness size={17} strokeWidth={1.4} />}
               title="Experience"
             />
-
             <div className="mt-7 space-y-8">
-
               <TimelineItem
                 year="2026 – Present"
-                title="Adjunct Faculty Member"
+                title="Adjunct Lecturer"
                 organization="Sylhet Engineering College · Department of Computer Science & Engineering"
-                description="Teaching undergraduate computer science and engineering courses while contributing to students' technical and academic development."
+                description="Teaching undergraduate courses in computer science and engineering, with a focus on supporting students’ technical and academic development."
               />
               <TimelineItem
-                year="April 2024 – Aug 2024"
+                year="April 2024 – August 2024"
                 title="Research Intern"
                 organization="Advanced Machine Intelligence Research Lab (AMIRL)"
-                description="Conducted research on generative image synthesis using GANs and diffusion models, focusing on high-fidelity medical image generation. The work resulted in “Percept-Diff: Innovations in Stable Diffusion for High-Fidelity IHC Image Generation,” accepted at 3ICT 2024."
+                description="Conducted research on generative image synthesis using GANs and diffusion models, with emphasis on high-fidelity medical image generation. This work contributed to the paper “Percept-Diff: Innovations in Stable Diffusion for High-Fidelity IHC Image Generation,” accepted at IEEE 3ICT 2024."
               />
-
               <TimelineItem
-                year="Feb 2023 – Aug 2023"
-                title="Internship"
+                year="February 2023 – August 2023"
+                title="Machine Learning Intern"
                 organization="LogiQbits"
-                description="Developed machine-learning models using LSTM, GRU, and Random Forest for time-series forecasting, and retrieved, analyzed and visualized sales data. from a large database "
+                description="Developed time-series forecasting models using LSTM, GRU, and Random Forest. Retrieved, analyzed, and visualized sales data from a large-scale database to support business insights."
               />
-
             </div>
-
           </section>
 
           <Divider />
 
-          {/* ================================================= */}
           {/* PUBLICATIONS */}
-          {/* ================================================= */}
-
-          <section
-            id="publications"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
+          <section id="publications" className="scroll-mt-12 py-14">
             <SectionTitle
-              icon={
-                <BookOpen
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
+              icon={<BookOpen size={17} strokeWidth={1.4} />}
               title="Publications"
             />
-
-            <div className="mt-7 space-y-8">
-
+            <div className="mt-7 space-y-9">
               <Publication
                 number="01"
                 title="Diff-AS: Diffusion-Augmented Strategy for Chrysanthemum Leaf Classification"
                 authors={
                   <>
                     <strong>
-                    Sonjoy Prosad Shaha, Abir Ahmed, Md Hasan Ahmad, Amatul Bushra Akhi, Mahmudul Hasan Badhan, Md. Atiqur Rahman
+                      S. P. Shaha, A. Ahmed, M. H. Ahmad, A. B. Akhi, M. H.
+                      Badhan and M. Atiqur Rahman
                     </strong>
-                    , et al.
                   </>
                 }
-                venue="IEEE QPAIN 2026"
+                venue="Accepted · IEEE QPAIN 2026"
                 links={[
                   {
                     label: "Paper",
-                    href: "#",
-                  },
-                  {
-                    label: "Code",
-                    href: "#",
+                    href: "https://ieeexplore.ieee.org/abstract/document/11546640",
                   },
                 ]}
               />
-
               <Publication
                 number="02"
-                title="A High-Quality Bangla–English Speech-to-Speech Parallel Corpus for Speech Translation Research"
+                title="Efficient Zero-Shot Voice Cloning for Bengali Speech Synthesis"
+                authors={
+                  <>
+                    <strong>Abir Ahmed</strong>, et al.
+                  </>
+                }
+                venue="IEEE ICCIT 2024"
+                links={[
+                  {
+                    label: "Paper",
+                    href: "https://ieeexplore.ieee.org/abstract/document/11022026",
+                  },
+                  {
+                    label: "Demo",
+                    href: "https://bengali-zero-shot-voice-cloning.netlify.app/",
+                  },
+                ]}
+              />
+              <Publication
+                number="03"
+                title="Percept-Diff: Innovations in Stable Diffusion for High-Fidelity IHC Image Generation in HER2 Breast Cancer Incorporating Perceptual Loss"
                 authors={
                   <>
                     <strong>
-                      Abir Ahmed Sohan
+                      Md. Naimur Asif Borno; Md. Tanvir Raihan; Abir Ahmed; Md
+                      Sakib Hossain Shovon; Jungpil Shin; M.F. Mridha
                     </strong>
-                    , et al.
                   </>
                 }
-                venue="2026"
+                venue="IEEE 3ICT 2024"
                 links={[
                   {
                     label: "Paper",
-                    href: "#",
-                  },
-                  {
-                    label: "Dataset",
-                    href: "#",
+                    href: "https://ieeexplore.ieee.org/abstract/document/10824425",
                   },
                 ]}
               />
-
+              <Publication
+                number="04"
+                title="Systematic Benchmarking and Hyperparameter Ablation of Lightweight Vision Transformers for Blood Cancer Detection from Peripheral Smear Images"
+                authors={
+                  <>
+                    Sonjoy, <strong>Abir Ahmed</strong>, and A. B. Akhi
+                  </>
+                }
+                venue="Submitted · ICRPSET 2026"
+                links={[
+                  {
+                    label: "Venue",
+                    href: "https://csa.ru.ac.bd/icrpset/2026/",
+                  },
+                ]}
+              />
+              <Publication
+                number="05"
+                title="Exploring the Barriers Preventing Women in Bangladesh from Pursuing Political Leadership Roles: Dataset Creation and Machine Learning Analysis"
+                authors={
+                  <>
+                    <strong>Abir Ahmed</strong> (Supervisor)
+                  </>
+                }
+                venue="Submitted · ACL Workshop 2027"
+                links={[
+                  {
+                    label: "Venue",
+                    href: "https://www.aclweb.org/portal/content/joint-call-workshops-proposals-2027",
+                  },
+                ]}
+              />
+              <Publication
+                number="06"
+                title="DCT-GAN: A Diversity-Controlled Training Strategy for High-Diversity Brain Tumor MRI Synthesis"
+                authors={
+                  <>
+                    <strong>Abir Ahmed</strong>, et al.
+                  </>
+                }
+                venue="Manuscript in Preparation · First Author"
+                links={[]}
+              />
+              <Publication
+                number="07"
+                title="BanglaS2S: A Large-Scale and Quality-Controlled Bangla–English Speech-to-Speech Parallel Corpus for Speech-to-Speech Translation"
+                authors={
+                  <>
+                    <strong>Abir Ahmed</strong>, et al.
+                  </>
+                }
+                venue="Manuscript in Preparation · Second Author"
+                links={[]}
+              />
             </div>
-
           </section>
 
           <Divider />
 
-          {/* ================================================= */}
-          {/* RESEARCH */}
-          {/* ================================================= */}
-
-          <section
-            id="research"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
-            <SectionTitle
-              icon={
-                <Microscope
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
-              title="Research"
-            />
-
-            <div className="mt-7 space-y-8">
-
-              <ResearchItem
-                title="Zero-Shot Bengali Voice Cloning"
-                tags="Speech Synthesis · Voice Cloning · Low-Resource Speech"
-                description="Investigated zero-shot voice cloning for Bengali speech using neural speech synthesis models, with emphasis on speaker representation, speaker preservation, and controllable synthesis."
-              />
-
-              <ResearchItem
-                title="Generative Image Modeling"
-                tags="GANs · Image Generation · Medical Imaging"
-                description="Explored generative models for image synthesis and evaluated generated medical images using image-quality, diversity, and embedding-based metrics."
-              />
-
-              <ResearchItem
-                title="Multimodal Generative AI"
-                tags="Multimodal Learning · Generative Models · Representation Learning"
-                description="Interested in the intersection of language, speech, audio, and visual modalities, particularly controllable and data-efficient generative systems."
-              />
-
-            </div>
-
-          </section>
-
-          <Divider />
-
-          {/* ================================================= */}
           {/* PROJECTS */}
-          {/* ================================================= */}
-
-          <section
-            id="projects"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
+          <section id="projects" className="scroll-mt-12 py-14">
             <SectionTitle
-              icon={
-                <Code2
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
+              icon={<Code2 size={17} strokeWidth={1.4} />}
               title="Projects"
             />
-
             <div className="mt-7 grid gap-5">
-
               <ProjectCard
-                title="Bengali Zero-Shot Voice Cloning"
-                year="2026"
-                category="Speech Synthesis · PyTorch · XTTS"
-                description="Developed a Bengali speech synthesis and zero-shot voice cloning pipeline and investigated speaker preservation using neural speaker embeddings."
-                links={[
-                  {
-                    label: "GitHub",
-                    href: "#",
-                  },
-                  {
-                    label: "Details",
-                    href: "#",
-                  },
-                ]}
+                title="Stock Market Forecasting"
+                year="2023"
+                category="Internship Project"
+                description="Built and evaluated time-series forecasting models using LSTM, GRU, and Random Forest for stock market prediction."
+                links={[]}
               />
-
               <ProjectCard
-                title="Bangla–English Speech-to-Speech Corpus"
-                year="2026"
-                category="Speech Translation · Dataset · TTS"
-                description="Constructed a parallel Bangla–English speech-to-speech corpus for speech translation research and evaluated transcript and speaker consistency."
-                links={[
-                  {
-                    label: "Dataset",
-                    href: "#",
-                  },
-                  {
-                    label: "GitHub",
-                    href: "#",
-                  },
-                ]}
+                title="Sales-Sense"
+                year="2023"
+                category="Internship Project"
+                description="Designed a data pipeline to retrieve, analyze, and visualize sales data from a large database, supporting decision-making through interactive insights."
+                links={[]}
               />
-
-              <ProjectCard
-                title="Medical Image Generation with GANs"
-                year="2025"
-                category="Generative Models · GANs · Computer Vision"
-                description="Implemented a GAN-based image generation pipeline for grayscale brain MRI data and investigated image quality and diversity using FID and embedding-based evaluation."
-                links={[
-                  {
-                    label: "GitHub",
-                    href: "#",
-                  },
-                ]}
-              />
-
             </div>
-
           </section>
 
           <Divider />
 
-          {/* ================================================= */}
-          {/* ACTIVITIES */}
-          {/* ================================================= */}
-
-          <section
-            id="activities"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
-            <SectionTitle
-              icon={
-                <UserRound
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
-              title="Activities"
-            />
-
-            <ul className="mt-7 max-w-2xl space-y-3 text-[14px] leading-relaxed text-neutral-600">
-
-              <li className="flex gap-3">
-
-                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-neutral-400" />
-
-                Academic teaching and mentoring in Computer
-                Science and Engineering.
-
-              </li>
-
-              <li className="flex gap-3">
-
-                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-neutral-400" />
-
-                Research and development in deep learning and
-                generative AI.
-
-              </li>
-
-              <li className="flex gap-3">
-
-                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-neutral-400" />
-
-                Participation in academic and technical
-                research activities.
-
-              </li>
-
-            </ul>
-
-          </section>
-
-          <Divider />
-
-          {/* ================================================= */}
-          {/* AWARDS */}
-          {/* ================================================= */}
-
-          <section
-            id="awards"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
-            <SectionTitle
-              icon={
-                <Award
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
-              title="Awards"
-            />
-
-            <p className="mt-7 text-[14px] text-neutral-500">
-
-              Add verified scholarships, fellowships, academic
-              awards, and competition achievements here.
-
-            </p>
-
-          </section>
-
-          <Divider />
-
-          {/* ================================================= */}
           {/* SKILLS */}
-          {/* ================================================= */}
-
-          <section
-            id="skills"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
+          <section id="skills" className="scroll-mt-12 py-14">
             <SectionTitle
-              icon={
-                <Code2
-                  size={18}
-                  strokeWidth={1.4}
-                />
-              }
-              title="Skills"
+              icon={<Code2 size={17} strokeWidth={1.4} />}
+              title="Skills & Languages"
             />
-
-            <div className="mt-7 max-w-2xl space-y-4 text-[13px] leading-relaxed">
-
+            <div className="mt-7 max-w-2xl space-y-4 text-[13.5px] leading-relaxed">
               <Skill
                 title="Programming"
-                value="Python · C++ · SQL · TypeScript"
+                value="Python · PyTorch · C · C++ · Java · JavaScript"
               />
-
               <Skill
-                title="Deep Learning"
-                value="PyTorch · TensorFlow · Hugging Face Transformers"
+                title="Expertise"
+                value="Zero-shot Voice Cloning · Image Generation · Speech-to-Speech Translation · Diffusion Models · GANs"
               />
-
               <Skill
-                title="Speech & Audio"
-                value="Torchaudio · TTS · Voice Cloning · Speech Synthesis"
+                title="Languages"
+                value="Bangla (Native) · English (IELTS 6.5 Overall)"
               />
-
-              <Skill
-                title="Computer Vision"
-                value="CNNs · Vision Transformers · GANs · Image Generation"
-              />
-
-              <Skill
-                title="Tools"
-                value="Git · GitHub · VS Code · Google Colab · Kaggle"
-              />
-
             </div>
-
           </section>
 
           <Divider />
 
-          {/* ================================================= */}
           {/* CONTACT */}
-          {/* ================================================= */}
-
-          <section
-            id="contact"
-            className="scroll-mt-10 py-12 md:py-14"
-          >
-
-            <div className="rounded-xl border border-neutral-200 bg-white px-6 py-8 md:px-8">
-
+          <section id="contact" className="scroll-mt-12 py-14">
+            <div className="rounded-lg border border-neutral-200 bg-white px-6 py-8 md:px-8">
               <div className="flex items-center gap-3">
-
                 <Mail
-                  size={18}
+                  size={17}
                   strokeWidth={1.4}
                   className="text-neutral-400"
                 />
-
-                <h2 className="font-serif text-xl font-semibold text-neutral-950">
+                <h2 className="font-serif text-xl font-semibold tracking-tight text-neutral-950">
                   Contact
                 </h2>
-
               </div>
-
-              <p className="mt-4 max-w-xl text-[14px] leading-[1.8] text-neutral-600">
-
-                I am open to research collaborations, graduate
-                research opportunities, and discussions related
-                to generative AI, speech, vision, and multimodal
-                learning.
-
+              <p className="mt-4 max-w-xl text-[14.5px] leading-[1.8] text-neutral-600">
+                I am open to research collaborations, graduate research
+                opportunities, and discussions related to generative AI, speech,
+                vision, and multimodal learning.
               </p>
-
               <a
-                href="mailto:abirahmed.academic@gmail.com"
-                className="mt-5 inline-flex items-center gap-2 text-[13px] font-medium text-neutral-900 underline underline-offset-4 hover:text-neutral-500"
+                href="mailto:aabirsust@gmail.com"
+                className="mt-5 inline-flex items-center gap-2 text-[13.5px] font-medium text-neutral-900 underline underline-offset-4 transition-colors hover:text-neutral-500"
               >
-
-                abirahmed.academic@gmail.com
-
-                <ArrowUpRight
-                  size={14}
-                  strokeWidth={1.5}
-                />
-
+                aabirsust@gmail.com
+                <ArrowUpRight size={13} strokeWidth={1.5} />
               </a>
-
             </div>
-
           </section>
 
-          {/* ================================================= */}
           {/* FOOTER */}
-          {/* ================================================= */}
-
-          <footer className="border-t border-neutral-200 py-7 text-center">
-
-            <p className="text-[11px] text-neutral-400">
+          <footer className="border-t border-neutral-200 py-8 text-center">
+            <p className="text-[11px] tracking-wide text-neutral-400">
               © {new Date().getFullYear()} Abir Ahmed
             </p>
-
           </footer>
-
         </div>
       </div>
     </main>
@@ -1005,14 +577,8 @@ export default function Home() {
 /* ================================================= */
 
 function Divider() {
-  return (
-    <div className="border-t border-neutral-200" />
-  );
+  return <div className="border-t border-neutral-200" />;
 }
-
-/* ================================================= */
-/* SECTION TITLE */
-/* ================================================= */
 
 function SectionTitle({
   icon,
@@ -1023,22 +589,13 @@ function SectionTitle({
 }) {
   return (
     <div className="flex items-center gap-3">
-
-      <span className="text-neutral-400">
-        {icon}
-      </span>
-
+      <span className="text-neutral-400">{icon}</span>
       <h2 className="font-serif text-xl font-semibold tracking-tight text-neutral-950">
         {title}
       </h2>
-
     </div>
   );
 }
-
-/* ================================================= */
-/* NEWS ITEM */
-/* ================================================= */
 
 function NewsItem({
   date,
@@ -1048,23 +605,14 @@ function NewsItem({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex gap-5 text-[13px] leading-relaxed">
-
-      <span className="w-20 shrink-0 font-mono text-[10px] text-neutral-400">
+    <div className="flex gap-6 text-[13.5px] leading-relaxed">
+      <span className="w-[5.5rem] shrink-0 font-mono text-[10.5px] text-neutral-400">
         {date}
       </span>
-
-      <p className="text-neutral-600">
-        {children}
-      </p>
-
+      <p className="text-neutral-600">{children}</p>
     </div>
   );
 }
-
-/* ================================================= */
-/* TIMELINE ITEM */
-/* ================================================= */
 
 function TimelineItem({
   year,
@@ -1078,37 +626,24 @@ function TimelineItem({
   description?: string;
 }) {
   return (
-    <div className="grid grid-cols-[90px_1fr] gap-5">
-
-      <span className="pt-1 font-mono text-[10px] text-neutral-400">
+    <div className="grid grid-cols-[6.5rem_1fr] gap-5">
+      <span className="pt-0.5 font-mono text-[10.5px] text-neutral-400">
         {year}
       </span>
-
       <div>
-
-        <h3 className="text-[14px] font-semibold text-neutral-900">
+        <h3 className="text-[14.5px] font-semibold text-neutral-900">
           {title}
         </h3>
-
-        <p className="mt-1 text-[13px] text-neutral-600">
-          {organization}
-        </p>
-
+        <p className="mt-1 text-[13.5px] text-neutral-600">{organization}</p>
         {description && (
-          <p className="mt-2 max-w-xl text-[13px] leading-relaxed text-neutral-500">
+          <p className="mt-2 max-w-xl text-[13.5px] leading-relaxed text-neutral-500">
             {description}
           </p>
         )}
-
       </div>
-
     </div>
   );
 }
-
-/* ================================================= */
-/* PUBLICATION */
-/* ================================================= */
 
 function Publication({
   number,
@@ -1121,94 +656,39 @@ function Publication({
   title: string;
   authors: React.ReactNode;
   venue: string;
-  links: {
-    label: string;
-    href: string;
-  }[];
+  links: { label: string; href: string }[];
 }) {
   return (
-    <article className="group grid grid-cols-[34px_1fr] gap-4">
-
-      <span className="pt-1 font-mono text-[10px] text-neutral-300">
+    <article className="group grid grid-cols-[2rem_1fr] gap-4">
+      <span className="pt-1 font-mono text-[10.5px] text-neutral-300">
         {number}
       </span>
-
       <div>
-
-        <h3 className="text-[14px] font-semibold leading-relaxed text-neutral-900 transition-colors group-hover:text-neutral-600">
+        <h3 className="text-[14.5px] font-semibold leading-snug text-neutral-900 transition-colors group-hover:text-neutral-600">
           {title}
         </h3>
-
-        <p className="mt-1.5 text-[12px] leading-relaxed text-neutral-500">
+        <p className="mt-1.5 text-[12.5px] leading-relaxed text-neutral-500">
           {authors}
         </p>
-
-        <p className="mt-1 text-[11px] italic text-neutral-400">
-          {venue}
-        </p>
-
-        <div className="mt-3 flex gap-4">
-
-          {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-500 underline underline-offset-4 transition-colors hover:text-neutral-950"
-            >
-
-              {link.label}
-
-              <ArrowUpRight
-                size={11}
-                strokeWidth={1.5}
-              />
-
-            </a>
-          ))}
-
-        </div>
-
+        <p className="mt-1 text-[11.5px] italic text-neutral-400">{venue}</p>
+        {links.length > 0 && (
+          <div className="mt-3 flex gap-4">
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="inline-flex items-center gap-1 text-[11.5px] font-medium text-neutral-500 underline underline-offset-4 transition-colors hover:text-neutral-900"
+              >
+                {link.label}
+                <ArrowUpRight size={11} strokeWidth={1.5} />
+              </a>
+            ))}
+          </div>
+        )}
       </div>
-
     </article>
   );
 }
-
-/* ================================================= */
-/* RESEARCH ITEM */
-/* ================================================= */
-
-function ResearchItem({
-  title,
-  tags,
-  description,
-}: {
-  title: string;
-  tags: string;
-  description: string;
-}) {
-  return (
-    <article className="border-l border-neutral-200 pl-5">
-
-      <h3 className="text-[14px] font-semibold text-neutral-900">
-        {title}
-      </h3>
-
-      <p className="mt-1.5 font-mono text-[9px] uppercase tracking-wide text-neutral-400">
-        {tags}
-      </p>
-
-      <p className="mt-3 max-w-2xl text-[13px] leading-[1.8] text-neutral-600">
-        {description}
-      </p>
-
-    </article>
-  );
-}
-
-/* ================================================= */
-/* PROJECT CARD */
-/* ================================================= */
 
 function ProjectCard({
   title,
@@ -1221,81 +701,47 @@ function ProjectCard({
   year: string;
   category: string;
   description: string;
-  links: {
-    label: string;
-    href: string;
-  }[];
+  links: { label: string; href: string }[];
 }) {
   return (
-    <article className="rounded-lg border border-neutral-200 bg-white p-5 transition hover:border-neutral-300 hover:shadow-[0_5px_20px_rgba(0,0,0,0.035)]">
-
-      <div className="flex items-start justify-between gap-5">
-
-        <h3 className="text-[14px] font-semibold text-neutral-900">
+    <article className="rounded-lg border border-neutral-200 bg-white p-5 transition hover:border-neutral-300">
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="text-[14.5px] font-semibold text-neutral-900">
           {title}
         </h3>
-
-        <span className="shrink-0 font-mono text-[10px] text-neutral-400">
+        <span className="shrink-0 font-mono text-[10.5px] text-neutral-400">
           {year}
         </span>
-
       </div>
-
-      <p className="mt-1.5 font-mono text-[9px] uppercase tracking-wide text-neutral-400">
+      <p className="mt-1.5 font-mono text-[9.5px] uppercase tracking-wider text-neutral-400">
         {category}
       </p>
-
-      <p className="mt-3 text-[13px] leading-[1.75] text-neutral-600">
+      <p className="mt-3 text-[13.5px] leading-[1.75] text-neutral-600">
         {description}
       </p>
-
-      <div className="mt-4 flex gap-4">
-
-        {links.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-500 transition-colors hover:text-neutral-950"
-          >
-
-            {link.label}
-
-            <ArrowUpRight
-              size={11}
-              strokeWidth={1.5}
-            />
-
-          </a>
-        ))}
-
-      </div>
-
+      {links.length > 0 && (
+        <div className="mt-4 flex gap-4">
+          {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="inline-flex items-center gap-1 text-[11.5px] font-medium text-neutral-500 transition-colors hover:text-neutral-900"
+            >
+              {link.label}
+              <ArrowUpRight size={11} strokeWidth={1.5} />
+            </a>
+          ))}
+        </div>
+      )}
     </article>
   );
 }
 
-/* ================================================= */
-/* SKILL */
-/* ================================================= */
-
-function Skill({
-  title,
-  value,
-}: {
-  title: string;
-  value: string;
-}) {
+function Skill({ title, value }: { title: string; value: string }) {
   return (
-    <div className="grid grid-cols-[120px_1fr] gap-4">
-
-      <span className="font-medium text-neutral-900">
-        {title}
-      </span>
-
-      <span className="text-neutral-500">
-        {value}
-      </span>
-
+    <div className="grid grid-cols-[7.5rem_1fr] gap-4">
+      <span className="font-medium text-neutral-900">{title}</span>
+      <span className="text-neutral-500">{value}</span>
     </div>
   );
 }
