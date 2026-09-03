@@ -172,7 +172,7 @@ export default function Home() {
                 <SiGooglescholar size={16} />
               </a>
               <a
-                href="https://github.com/abirahmed56"
+                href="https://github.com/abirahmd"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub"
