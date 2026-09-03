@@ -441,7 +441,7 @@ export default function Home() {
                     {/* <strong>Abir Ahmed</strong> (Supervisor) */}
                   </>
                 }
-                venue="Submitted · ACL Workshop 2027 · Corresponding Author "
+                venue="Will be submitted in ACL Workshop 2027 · Corresponding Author "
                 links={[
                   {
                     label: "Venue",
