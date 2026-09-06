@@ -445,7 +445,7 @@ export default function Home() {
                 links={[
                   {
                     label: "Venue",
-                    href: "https://www.aclweb.org/portal/content/joint-call-workshops-proposals-2027",
+                    href: "",
                   },
                 ]}
               />
